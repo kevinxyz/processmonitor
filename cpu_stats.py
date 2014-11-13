@@ -12,9 +12,14 @@ def cpu_usage(l):
              'total_consumed_user_cycles' : 0,
              'total_consumed_system_cycles' : 0}
 
+    # TODO(richlee33): This check should be hoisted all the way up to indicate
+    #                  early termination case.
     #check for an empty list of PIDs
     if len(l) == 0:
         #do nothing and return out
+        # TODO(richlee33): if another variable is set to cpu_usage(l), you should
+        #                  explicitly return a "None" to tell the reader that
+        #                  this function returns something.
         return
 
     for pid in l:
@@ -80,19 +85,32 @@ def get_cpu_prior_file(i):
         with open(cpu_file, 'r') as f:
             content = f.readline()
         parsed = content.split()
+        # TODO(richlee33): For simplicity, you can just read a json content
+        #                  like below, in one line (see write_cpu_file):
+        #                  stats = json.loads(parsed)
         stats['timestamp'] = float(parsed[0])
         stats['user'] = int(parsed[1])
         stats['system'] = int(parsed[2])
+        # As a side note, it is very bad practice to have to use indices to
+        # keep state in a file, because if you need to add/remove new
+        # parameters, you need to make sure to do it to all the places that
+        # use the file (get_cpu_prior_file and write_cpu_file).
 
     return stats
 
 
+# TODO(richlee33): d is a very poor naming convention, it does not convey types
+#                  and forces the reader to look ahead further to understand
+#                  what it is.
 def write_cpu_file(i,d):
 
     cpu_file = '/tmp/' + str(i)
         
     if ('timestamp' in d): 
         f = open(cpu_file, 'w')
+        # TODO(richlee33): You should just use json for simplicity. Like the
+        #                  following in just one line:
+        #                  f.write(json.dumps(d))
         f.write (str(d['timestamp']) + ' ' + str(d['user']) 
                                      + ' ' +str(d['system']))
         f.close()

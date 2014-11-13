@@ -3,7 +3,12 @@
 *.backup
 *.swp
 /hide
+# Auto generated files from virtualenv
 /bin
 /lib
 /local
 /include
+# IntelliJ IDE editor
+.idea
+# Mac's virtualenv
+.Python

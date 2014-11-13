@@ -1,6 +1,11 @@
 import psutil
 
 def memory_average(l):
+    """
+    TODO(richlee33):
+    This is the normal commenting convention inside a function. This allows
+    auto generation of pydoc
+    """
 #prints average memory RSS and VMS
 #input: list of PIDs to use to calculate memory values
 #output: dictionary containing average RSS, average VMS and number of workers
@@ -15,6 +20,7 @@ def memory_average(l):
         return
 
     for pid in l:
+        # TODO(richlee33): you should indent 4 spaces
          p = psutil.Process(pid)
          memory_rss_total = memory_rss_total + p.memory_info_ex().rss 
          memory_vms_total = memory_vms_total + p.memory_info_ex().vms
